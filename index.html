@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohamed Natheer — Graphic Designer</title>
+<meta name="description" content="Portfolio of Mohamed Natheer, graphic designer working across brand identity, print, packaging and digital design.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --paper:#F0EDE6;
+    --paper-dim:#E4E0D3;
+    --ink:#17181C;
+    --cobalt:#2F4CFF;
+    --ochre:#E8A23A;
+    --crimson:#DE4B34;
+
+    --display:'Archivo Black', sans-serif;
+    --mono:'Space Mono', monospace;
+    --body:'Inter', sans-serif;
+
+    --maxw:1280px;
+    --pad: clamp(1.25rem, 4vw, 3rem);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  img{max-width:100%; display:block;}
+  a{color:inherit;}
+
+  ::selection{background:var(--cobalt); color:var(--paper);}
+
+  a:focus-visible, button:focus-visible{
+    outline:3px solid var(--cobalt);
+    outline-offset:3px;
+  }
+
+  .wrap{max-width:var(--maxw); margin:0 auto; padding-left:var(--pad); padding-right:var(--pad);}
+
+  /* ---------- crop marks (signature motif) ---------- */
+  .crop{position:fixed; width:26px; height:26px; z-index:60; pointer-events:none; opacity:0.55;}
+  .crop svg{width:100%; height:100%;}
+  .crop.tl{top:16px; left:16px;}
+  .crop.tr{top:16px; right:16px; transform:scaleX(-1);}
+  .crop.bl{bottom:16px; left:16px; transform:scaleY(-1);}
+  .crop.br{bottom:16px; right:16px; transform:scale(-1,-1);}
+  @media (max-width:640px){ .crop{display:none;} }
+
+  /* ---------- nav ---------- */
+  header.site{
+    position:sticky; top:0; z-index:50;
+    background:rgba(240,237,230,0.88);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid rgba(23,24,28,0.12);
+  }
+  .navrow{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-top:1rem; padding-bottom:1rem;
+  }
+  .mark{
+    display:flex; align-items:center; gap:0.6rem;
+    font-family:var(--mono); font-weight:700; letter-spacing:0.02em;
+    text-decoration:none;
+  }
+  .mark .box{
+    width:34px; height:34px; background:var(--ink); color:var(--paper);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--display); font-size:0.95rem;
+  }
+  nav.links{display:flex; align-items:center; gap:2rem;}
+  nav.links a{
+    font-family:var(--mono); font-size:0.8rem; letter-spacing:0.04em;
+    text-transform:uppercase; text-decoration:none; position:relative;
+  }
+  nav.links a::after{
+    content:''; position:absolute; left:0; bottom:-4px; height:2px; width:0;
+    background:var(--cobalt); transition:width 0.25s ease;
+  }
+  nav.links a:hover::after{width:100%;}
+  .talk-btn{
+    font-family:var(--mono); font-size:0.78rem; text-transform:uppercase;
+    letter-spacing:0.04em; text-decoration:none;
+    border:1.5px solid var(--ink); padding:0.55rem 1.1rem;
+    transition:background 0.2s ease, color 0.2s ease;
+  }
+  .talk-btn:hover{background:var(--ink); color:var(--paper);}
+  .burger{display:none; background:none; border:none; cursor:pointer; padding:0.4rem;}
+  .burger span{display:block; width:24px; height:2px; background:var(--ink); margin:5px 0;}
+
+  @media (max-width:840px){
+    nav.links{
+      position:fixed; inset:0 0 0 auto; top:66px; width:min(78vw,320px); height:calc(100vh - 66px);
+      background:var(--paper); flex-direction:column; align-items:flex-start; gap:1.6rem;
+      padding:2.2rem var(--pad); border-left:1px solid rgba(23,24,28,0.12);
+      transform:translateX(100%); transition:transform 0.3s ease; z-index:49;
+    }
+    nav.links.open{transform:translateX(0);}
+    nav.links a{font-size:1rem;}
+    .burger{display:block;}
+    .talk-btn{display:none;}
+  }
+
+  /* ---------- hero ---------- */
+  .hero{padding-top:clamp(2.5rem,7vw,5rem); padding-bottom:clamp(2.5rem,6vw,4rem); position:relative;}
+  .eyebrow{
+    font-family:var(--mono); font-size:0.8rem; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--cobalt); display:flex; align-items:center; gap:0.6rem; margin-bottom:1.4rem;
+  }
+  .eyebrow::before{content:''; width:26px; height:2px; background:var(--cobalt);}
+
+  .hero-grid{
+    display:grid; grid-template-columns:1.4fr 1fr; gap:clamp(2rem,5vw,4rem);
+    align-items:end;
+  }
+  .hero-name{
+    font-family:var(--display);
+    font-size:clamp(3rem, 9vw, 7.2rem);
+    line-height:0.92; letter-spacing:-0.01em; text-transform:uppercase;
+  }
+  .hero-name .outline{
+    -webkit-text-stroke:2px var(--ink); color:transparent;
+  }
+  .role{
+    font-family:var(--mono); font-size:clamp(0.95rem,1.6vw,1.15rem);
+    margin-top:1.4rem; max-width:34ch; color:#3a3b40;
+  }
+  .role b{color:var(--ink); font-weight:700;}
+
+  .photo-slot{
+    position:relative; aspect-ratio:4/5; width:100%;
+    border:1.5px dashed rgba(23,24,28,0.4);
+    display:flex; align-items:center; justify-content:center; flex-direction:column; gap:0.7rem;
+    background:var(--paper-dim); overflow:hidden;
+  }
+  .photo-slot img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:none;
+  }
+  .photo-slot.has-photo img{display:block;}
+  .photo-slot.has-photo .placeholder-ui{display:none;}
+  .placeholder-ui{display:flex; flex-direction:column; align-items:center; gap:0.6rem; text-align:center; padding:1rem;}
+  .placeholder-ui svg{width:44px; height:44px; opacity:0.55;}
+  .placeholder-ui span{font-family:var(--mono); font-size:0.72rem; letter-spacing:0.04em; text-transform:uppercase; opacity:0.65;}
+  .photo-slot .pc{position:absolute; width:16px; height:16px;}
+  .photo-slot .pc svg{width:100%; height:100%; opacity:0.5;}
+  .photo-slot .pc.tl{top:8px; left:8px;}
+  .photo-slot .pc.tr{top:8px; right:8px; transform:scaleX(-1);}
+  .photo-slot .pc.bl{bottom:8px; left:8px; transform:scaleY(-1);}
+  .photo-slot .pc.br{bottom:8px; right:8px; transform:scale(-1,-1);}
+
+  @media (max-width:840px){
+    .hero-grid{grid-template-columns:1fr; align-items:start;}
+    .photo-slot{max-width:340px;}
+  }
+
+  /* ---------- specbar (recurring divider signature) ---------- */
+  .specbar{
+    border-top:1.5px solid var(--ink); border-bottom:1.5px solid var(--ink);
+    display:flex; overflow-x:auto;
+  }
+  .specbar .cell{
+    flex:1 0 auto; padding:0.6rem clamp(0.9rem,2vw,1.6rem);
+    font-family:var(--mono); font-size:0.72rem; letter-spacing:0.03em;
+    display:flex; align-items:center; gap:0.55rem; white-space:nowrap;
+    border-right:1px solid rgba(23,24,28,0.15);
+  }
+  .specbar .swatch{width:11px; height:11px; border-radius:50%; flex:none;}
+
+  /* ---------- section shell ---------- */
+  section{padding-top:clamp(3.5rem,7vw,6rem); padding-bottom:clamp(3.5rem,7vw,6rem);}
+  .section-head{
+    display:grid; grid-template-columns:auto 1fr; gap:1.5rem clamp(1.5rem,4vw,3.5rem);
+    align-items:baseline; margin-bottom:clamp(2rem,5vw,3.5rem);
+  }
+  .idx{
+    font-family:var(--mono); font-size:0.85rem; color:var(--cobalt); letter-spacing:0.05em;
+  }
+  .section-title{
+    font-family:var(--display); text-transform:uppercase;
+    font-size:clamp(1.9rem, 4.2vw, 3.1rem); line-height:1;
+  }
+  .section-sub{
+    font-family:var(--body); color:#4b4c52; max-width:46ch; font-size:0.98rem;
+  }
+  @media (max-width:640px){
+    .section-head{grid-template-columns:1fr;}
+  }
+
+  /* ---------- about ---------- */
+  .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:clamp(2rem,5vw,4rem);}
+  .about-grid p{font-size:clamp(1.05rem,1.6vw,1.3rem); font-weight:500; line-height:1.55;}
+  .facts{display:grid; grid-template-columns:1fr 1fr; gap:1.6rem 1rem; margin-top:2rem;}
+  .fact dt{font-family:var(--mono); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--cobalt);}
+  .fact dd{font-size:1.05rem; font-weight:600; margin-top:0.3rem;}
+  @media (max-width:760px){ .about-grid{grid-template-columns:1fr;} }
+
+  /* ---------- work grid ---------- */
+  .work-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1.6rem;}
+  @media (max-width:960px){ .work-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:620px){ .work-grid{grid-template-columns:1fr;} }
+
+  .card{
+    background:var(--paper); border:1px solid rgba(23,24,28,0.15);
+    display:flex; flex-direction:column; transition:transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .card:hover{transform:translateY(-6px); box-shadow:0 18px 30px -18px rgba(23,24,28,0.35);}
+  .thumb{aspect-ratio:4/3; position:relative; overflow:hidden; background:var(--ink);}
+  .thumb svg{width:100%; height:100%; display:block;}
+  .thumb .fig{
+    position:absolute; top:0.7rem; left:0.7rem; font-family:var(--mono); font-size:0.7rem;
+    color:var(--paper); background:rgba(23,24,28,0.55); padding:0.15rem 0.5rem; letter-spacing:0.04em;
+  }
+  .card-body{padding:1.1rem 1.2rem 1.3rem; display:flex; flex-direction:column; gap:0.35rem;}
+  .card-title{font-family:var(--body); font-weight:700; font-size:1.05rem;}
+  .card-meta{
+    font-family:var(--mono); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.04em;
+    color:#5a5b60; display:flex; justify-content:space-between;
+  }
+
+  /* ---------- toolkit ---------- */
+  .toolkit-grid{display:grid; grid-template-columns:1fr 1fr; gap:clamp(2rem,5vw,4rem);}
+  .chips{display:flex; flex-wrap:wrap; gap:0.7rem;}
+  .chip{
+    font-family:var(--mono); font-size:0.85rem; font-weight:700;
+    border:1.5px solid var(--ink); padding:0.6rem 1rem;
+    display:flex; align-items:center; gap:0.5rem;
+  }
+  .chip i{width:8px; height:8px; background:var(--ochre); flex:none;}
+  .cap-list{list-style:none; display:flex; flex-direction:column;}
+  .cap-list li{
+    padding:0.85rem 0; border-bottom:1px solid rgba(23,24,28,0.15);
+    display:flex; justify-content:space-between; align-items:center; font-weight:600;
+  }
+  .cap-list li span{font-family:var(--mono); font-size:0.72rem; color:var(--cobalt);}
+  @media (max-width:760px){ .toolkit-grid{grid-template-columns:1fr;} }
+
+  /* ---------- contact ---------- */
+  .contact{background:var(--ink); color:var(--paper);}
+  .contact .idx{color:var(--ochre);}
+  .contact-title{
+    font-family:var(--display); text-transform:uppercase; line-height:0.95;
+    font-size:clamp(2.3rem,7vw,5.5rem); margin-bottom:2rem;
+  }
+  .contact-title .accent{color:var(--cobalt);}
+  .contact-row{
+    display:flex; flex-wrap:wrap; gap:1rem 2.5rem; align-items:center; margin-top:2.2rem;
+  }
+  .email-btn{
+    font-family:var(--mono); font-size:1rem; text-decoration:none; color:var(--ink);
+    background:var(--paper); padding:0.9rem 1.6rem; display:inline-flex; align-items:center; gap:0.6rem;
+    border:1.5px solid var(--paper); transition:background 0.2s ease, color 0.2s ease;
+  }
+  .email-btn:hover{background:transparent; color:var(--paper);}
+  .social-list{display:flex; gap:1.6rem; list-style:none; flex-wrap:wrap;}
+  .social-list a{
+    font-family:var(--mono); font-size:0.85rem; text-decoration:none;
+    border-bottom:1px solid rgba(240,237,230,0.4); padding-bottom:2px;
+  }
+  .social-list a:hover{border-color:var(--cobalt); color:var(--cobalt);}
+
+  footer.site{
+    background:var(--ink); color:rgba(240,237,230,0.6);
+    padding:1.6rem var(--pad); font-family:var(--mono); font-size:0.72rem;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.6rem;
+    border-top:1px solid rgba(240,237,230,0.2);
+  }
+  .back-top{color:rgba(240,237,230,0.6); text-decoration:none;}
+  .back-top:hover{color:var(--paper);}
+
+  /* reveal on scroll */
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity 0.6s ease, transform 0.6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<div class="crop tl"><svg viewBox="0 0 26 26"><path d="M2 2 L2 12 M2 2 L12 2" stroke="#17181C" stroke-width="2" fill="none"/><circle cx="2" cy="2" r="1.4" fill="#DE4B34"/></svg></div>
+<div class="crop tr"><svg viewBox="0 0 26 26"><path d="M2 2 L2 12 M2 2 L12 2" stroke="#17181C" stroke-width="2" fill="none"/><circle cx="2" cy="2" r="1.4" fill="#DE4B34"/></svg></div>
+<div class="crop bl"><svg viewBox="0 0 26 26"><path d="M2 2 L2 12 M2 2 L12 2" stroke="#17181C" stroke-width="2" fill="none"/><circle cx="2" cy="2" r="1.4" fill="#DE4B34"/></svg></div>
+<div class="crop br"><svg viewBox="0 0 26 26"><path d="M2 2 L2 12 M2 2 L12 2" stroke="#17181C" stroke-width="2" fill="none"/><circle cx="2" cy="2" r="1.4" fill="#DE4B34"/></svg></div>
+
+<header class="site">
+  <div class="wrap navrow">
+    <a href="#top" class="mark"><span class="box">MN</span> MOHAMED&nbsp;NATHEER</a>
+    <nav class="links" id="navLinks">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#toolkit">Toolkit</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="#contact" class="talk-btn">Let's talk</a>
+    <button class="burger" id="burgerBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Portfolio — 2026</p>
+      <div class="hero-grid">
+        <div>
+          <h1 class="hero-name">MOHAMED<br><span class="outline">NATHEER</span></h1>
+          <p class="role">Graphic designer working across <b>brand identity</b>, <b>print & packaging</b>, and <b>digital design</b> — built with intention, from business card to billboard.</p>
+        </div>
+
+        <!-- ===== PHOTO SLOT =====
+             Replace the src below with your own photo (e.g. images/profile.jpg).
+             Recommended size: 1200x1500px (4:5 portrait), JPG or PNG.
+             Until a valid image is added, the placeholder frame below shows automatically. -->
+        <div class="photo-slot" id="photoSlot">
+          <div class="pc tl"><svg viewBox="0 0 16 16"><path d="M1 1 L1 7 M1 1 L7 1" stroke="#17181C" stroke-width="2" fill="none"/></svg></div>
+          <div class="pc tr"><svg viewBox="0 0 16 16"><path d="M1 1 L1 7 M1 1 L7 1" stroke="#17181C" stroke-width="2" fill="none"/></svg></div>
+          <div class="pc bl"><svg viewBox="0 0 16 16"><path d="M1 1 L1 7 M1 1 L7 1" stroke="#17181C" stroke-width="2" fill="none"/></svg></div>
+          <div class="pc br"><svg viewBox="0 0 16 16"><path d="M1 1 L1 7 M1 1 L7 1" stroke="#17181C" stroke-width="2" fill="none"/></svg></div>
+          <img id="profileImg" src="img/0752100.jpg" alt="Portrait of Mohamed Natheer"
+               onload="document.getElementById('photoSlot').classList.add('has-photo')"
+               onerror="document.getElementById('photoSlot').classList.remove('has-photo')">
+          <div class="placeholder-ui">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#17181C" stroke-width="1.4"><rect x="2" y="6" width="20" height="14" rx="1.5"/><circle cx="12" cy="13" r="4"/><path d="M8 6l1.5-2.5h5L16 6"/></svg>
+            <span>Your photo here<br>1200 × 1500 · profile.jpg</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- recurring spec bar (signature divider) -->
+  <div class="specbar">
+    <div class="cell"><span class="swatch" style="background:#2F4CFF"></span>COBALT — #2F4CFF</div>
+    <div class="cell"><span class="swatch" style="background:#E8A23A"></span>OCHRE — #E8A23A</div>
+    <div class="cell"><span class="swatch" style="background:#DE4B34"></span>CRIMSON — #DE4B34</div>
+    <div class="cell"><span class="swatch" style="background:#17181C"></span>INK — #17181C</div>
+    <div class="cell">300DPI · CMYK · PRESS READY</div>
+  </div>
+
+  <!-- ================= ABOUT ================= -->
+  <section id="about">
+    <div class="wrap reveal">
+      <div class="section-head">
+        <span class="idx">INDEX / 01</span>
+        <div>
+          <h2 class="section-title">About</h2>
+        </div>
+      </div>
+      <div class="about-grid">
+        <p>As a graphic designer with 8 months of industry experience, Mohamed Natheer approaches every brief as raw material. By pairing systematic grids with a sharp eye for typographic detail, he builds visual identities that scale effortlessly from a business card to a billboard. Spanning brand identity, packaging, editorial layout, and digital design, the work always starts from the constraint and grows outward.</p>
+        <dl class="facts">
+          <div class="fact"><dt>Based in</dt><dd>Kalmunai, Sri Lanka</dd></div>
+          <div class="fact"><dt>Available for</dt><dd>Freelance & full-time</dd></div>
+          <div class="fact"><dt>Focus</dt><dd>Identity & Print</dd></div>
+          <div class="fact"><dt>Experience</dt><dd>08 Months</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <div class="specbar">
+    <div class="cell"><span class="swatch" style="background:#2F4CFF"></span>FIG. 01–06</div>
+    <div class="cell">SELECTED WORK</div>
+    <div class="cell">CONTACT SHEET — 2023–2025</div>
+  </div>
+
+  <!-- ================= WORK ================= -->
+  <section id="work">
+    <div class="wrap reveal">
+      <div class="section-head">
+        <span class="idx">INDEX / 02</span>
+        <div>
+          <h2 class="section-title">Selected Work</h2>
+          <p class="section-sub">A contact sheet of recent projects. Replace each thumbnail below with real project images and case studies.</p>
+        </div>
+      </div>
+
+      <div class="work-grid">
+
+        <!-- Card 1 — swap the <svg> block for an <img src="images/project-1.jpg"> when ready -->
+        <article class="card">
+          <div class="thumb" style="background:#17181C;">
+            <span class="fig">FIG.01</span>
+            <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+              <rect width="400" height="300" fill="#17181C"/>
+              <circle cx="130" cy="150" r="90" fill="#2F4CFF"/>
+              <circle cx="270" cy="150" r="90" fill="#E8A23A" opacity="0.85"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <span class="card-title">Alma Coffee Roasters</span>
+            <span class="card-meta"><span>Brand Identity</span><span>2025</span></span>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="card">
+          <div class="thumb" style="background:#2F4CFF;">
+            <span class="fig">FIG.02</span>
+            <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+              <rect width="400" height="300" fill="#2F4CFF"/>
+              <rect x="40" y="40" width="320" height="220" fill="none" stroke="#F0EDE6" stroke-width="4"/>
+              <line x1="40" y1="150" x2="360" y2="150" stroke="#F0EDE6" stroke-width="4"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <span class="card-title">Northline Music Fest</span>
+            <span class="card-meta"><span>Poster Series</span><span>2025</span></span>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="card">
+          <div class="thumb" style="background:#E8A23A;">
+            <span class="fig">FIG.03</span>
+            <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+              <rect width="400" height="300" fill="#E8A23A"/>
+              <polygon points="200,50 340,250 60,250" fill="#17181C"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <span class="card-title">Verve Skincare</span>
+            <span class="card-meta"><span>Packaging Design</span><span>2024</span></span>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="card">
+          <div class="thumb" style="background:#17181C;">
+            <span class="fig">FIG.04</span>
+            <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+              <rect width="400" height="300" fill="#17181C"/>
+              <rect x="0" y="0" width="400" height="30" fill="#DE4B34"/>
+              <rect x="0" y="270" width="400" height="30" fill="#DE4B34"/>
+              <text x="200" y="165" font-family="monospace" font-size="26" fill="#F0EDE6" text-anchor="middle">Aa</text>
+            </svg>
+          </div>
+          <div class="card-body">
+            <span class="card-title">The Quarterly Review</span>
+            <span class="card-meta"><span>Editorial Layout</span><span>2024</span></span>
+          </div>
+        </article>
+
+        <!-- Card 5 -->
+        <article class="card">
+          <div class="thumb" style="background:#DE4B34;">
+            <span class="fig">FIG.05</span>
+            <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+              <rect width="400" height="300" fill="#DE4B34"/>
+              <rect x="140" y="30" width="120" height="240" rx="14" fill="#17181C"/>
+              <rect x="152" y="55" width="96" height="170" rx="4" fill="#F0EDE6"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <span class="card-title">Solstice App</span>
+            <span class="card-meta"><span>UI / Digital</span><span>2024</span></span>
+          </div>
+        </article>
+
+        <!-- Card 6 -->
+        <article class="card">
+          <div class="thumb" style="background:#F0EDE6;">
+            <span class="fig">FIG.06</span>
+            <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+              <rect width="400" height="300" fill="#F0EDE6"/>
+              <circle cx="200" cy="150" r="70" fill="none" stroke="#17181C" stroke-width="3"/>
+              <circle cx="200" cy="150" r="40" fill="#2F4CFF"/>
+              <circle cx="200" cy="150" r="10" fill="#17181C"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <span class="card-title">Kova Studio</span>
+            <span class="card-meta"><span>Motion & Identity</span><span>2023</span></span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="specbar">
+    <div class="cell"><span class="swatch" style="background:#E8A23A"></span>SOFTWARE & CRAFT</div>
+    <div class="cell">TOOLKIT — INDEX/03</div>
+  </div>
+
+  <!-- ================= TOOLKIT ================= -->
+  <section id="toolkit">
+    <div class="wrap reveal">
+      <div class="section-head">
+        <span class="idx">INDEX / 03</span>
+        <div>
+          <h2 class="section-title">Toolkit</h2>
+        </div>
+      </div>
+      <div class="toolkit-grid">
+        <div>
+          <div class="chips">
+            <span class="chip"><i></i>Illustrator</span>
+            <span class="chip"><i></i>Photoshop</span>
+            <span class="chip"><i></i>InDesign</span>
+            <span class="chip"><i></i>Figma</span>
+            <span class="chip"><i></i>After Effects</span>
+          </div>
+        </div>
+        <ul class="cap-list">
+          <li>Brand Identity Systems <span>01</span></li>
+          <li>Packaging & Print <span>02</span></li>
+          <li>Editorial & Layout <span>03</span></li>
+          <li>Typography & Type Systems <span>04</span></li>
+          <li>Art Direction <span>05</span></li>
+          <li>Motion Basics <span>06</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section id="contact" class="contact">
+    <div class="wrap reveal">
+      <span class="idx">INDEX / 04</span>
+      <h2 class="contact-title">LET'S MAKE<br>SOMETHING <span class="accent">WORTH</span><br>LOOKING AT.</h2>
+      <div class="contact-row">
+        <a class="email-btn" href="mailto:mohamednatheer20051220@gmail.com ">mohamednatheer20051220@gmail.com  →</a>
+        <ul class="social-list">
+          <li><a href="#" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="#" target="_blank" rel="noopener">Behance</a></li>
+          <li><a href="#" target="_blank" rel="noopener">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <span>© <span id="year"></span> Mohamed Natheer. Built for print & pixel.</span>
+  <a href="#top" class="back-top">Back to top ↑</a>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // mobile nav toggle
+  const burger = document.getElementById('burgerBtn');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open);
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false');
+  }));
+
+  // reveal on scroll (skips animation if reduced motion is preferred)
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced) {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+  } else if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+  }
+</script>
+
+</body>
+</html>
